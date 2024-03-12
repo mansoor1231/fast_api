@@ -3,10 +3,10 @@ import psycopg2
 import re
 print("Connecting")
 
-conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
-                            password="brocafe", port=5432)
-# conn = psycopg2.connect(host=host_name, dbname=database_name, user=user_name,
-#                             password=user_pass, port=port_name)
+# conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
+#                             password="brocafe", port=5432)
+conn = psycopg2.connect(host=host_name, dbname=database_name, user=user_name,
+                            password=user_pass, port=port_name)
 cur = conn.cursor()
 cur.execute("""CREATE TABLE IF NOT EXISTS soil_monitor (
     id SERIAL PRIMARY KEY,
