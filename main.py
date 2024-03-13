@@ -1,23 +1,23 @@
 from fastapi import  FastAPI
-import psycopg2
+# import psycopg2
 import re
 print("Connecting")
 
 # conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres",
 #                             password="brocafe", port=5432)
-conn = psycopg2.connect(host=host_name, dbname=database_name, user=user_name,
-                            password=user_pass, port=port_name)
-cur = conn.cursor()
-cur.execute("""CREATE TABLE IF NOT EXISTS soil_monitor (
-    id SERIAL PRIMARY KEY,
-    date DATE NOT NULL DEFAULT CURRENT_DATE,
-    time TIME NOT NULL DEFAULT CURRENT_TIME,
-    DeviceName VARCHAR(255),
-    LightIntensity FLOAT,
-    SoilMoisture FLOAT,
-    Humidity FLOAT,
-    Temperature FLOAT);""")
-conn.commit()
+# conn = psycopg2.connect(host=host_name, dbname=database_name, user=user_name,
+#                             password=user_pass, port=port_name)
+# cur = conn.cursor()
+# cur.execute("""CREATE TABLE IF NOT EXISTS soil_monitor (
+#     id SERIAL PRIMARY KEY,
+#     date DATE NOT NULL DEFAULT CURRENT_DATE,
+#     time TIME NOT NULL DEFAULT CURRENT_TIME,
+#     DeviceName VARCHAR(255),
+#     LightIntensity FLOAT,
+#     SoilMoisture FLOAT,
+#     Humidity FLOAT,
+#     Temperature FLOAT);""")
+# conn.commit()
 print("Connected")
 app = FastAPI()
 
@@ -29,22 +29,30 @@ async def post():
     return {"message": "hello post"}
 @app.get("/get")
 async def get_info():
-    cur.execute("""SELECT *
-        FROM soil_monitor
-        ORDER BY id DESC
-        LIMIT 1;""")
-    result = cur.fetchone()
-    print(result)
-
-    int_value = int(result[0])
-    date = result[1]
-    time = result[2]
-    device_name = result[3]
-    light = int(result[4])
-    soil = int(result[5])
-    humid = int(result[6])
-    temp = int(result[7])
-
+    # cur.execute("""SELECT *
+    #     FROM soil_monitor
+    #     ORDER BY id DESC
+    #     LIMIT 1;""")
+    # result = cur.fetchone()
+    
+    # print(result)
+    # 
+    # int_value = int(result[0])
+    # date = result[1]
+    # time = result[2]
+    # device_name = result[3]
+    # light = int(result[4])
+    # soil = int(result[5])
+    # humid = int(result[6])
+    # temp = int(result[7])
+    int_value = 25
+    date = "2024/03/19"
+    time = "13:10:44"
+    device_name = "Pi"
+    light = 3.54
+    soil = 5.48
+    humid = 60.4
+    temp = 32.45
     # Print the extracted values
     print("Integer:", int_value)
     print("Time:", time)
@@ -87,10 +95,10 @@ async def post_data(dname: str):
     # conn = psycopg2.connect(host="localhost", dbname="fastapi", user="postgres",
     #                         password="brocafe", port=5432)
     # cur = conn.cursor()
-    cur.execute("""INSERT INTO soil_monitor (DeviceName, LightIntensity, SoilMoisture, Humidity, Temperature) VALUES
-    ('"""+device+"""', %f, %f, %f,%f);
-    """ % ( light, soil , humid, temp))
-    conn.commit()
+    # cur.execute("""INSERT INTO soil_monitor (DeviceName, LightIntensity, SoilMoisture, Humidity, Temperature) VALUES
+    # ('"""+device+"""', %f, %f, %f,%f);
+    # """ % ( light, soil , humid, temp))
+    # conn.commit()
     # cur.close()
     # conn.close()
     return {"#Data Posted":dname}
